@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<title>laboratori-2</title>
+	</head>
+	<body style='background: rgb(44, 43, 43); min-height: 100vh; display: grid; place-items:center'>
+		<div  style='background: white; padding: 30px'>
+			<label for="name" required>Enter Your Name:</label><br>
+			<input type="text" id="name" name="name" ><br>
+			<label for="phone" required>Enter your phone Number:</label><br>
+			<input type="text" id="phone" name="phone" ><br><br>
+			<button onclick='sendRequest()' style="width: 200px; background: rgb(223, 125, 13);">Send</button>
+		</div> 
+	</body>
+	<script>
+		function sendRequest() {
+
+					const BASE_URL = 'http://localhost:3000/';
+
+					let	name = document.querySelector('#name').value;
+					let	phone = document.querySelector('#phone').value;
+
+					if ( window.sessionStorage.name && window.sessionStorage.phone) {
+						name = window.sessionStorage.name;
+						phone = window.sessionStorage.phone;
+					}
+
+					axios({
+					  method: 'post',
+						url: `${BASE_URL}laboratoriinAjil2`,
+					  data: {
+						name: name,
+						phone: phone,
+					  }
+						}).then( () => {
+						window.sessionStorage.name = '';
+						window.sessionStorage.phone = '';
+						}) .catch(err => {
+							window.sessionStorage.name = name;
+							window.sessionStorage.phone = phone;
+					});
+				}
+	</script>
+</html>
